@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#153c43">
+  <meta name="description" content="A fast nuclear medicine activity calculator with physical decay and optional syringe residue correction.">
+  <title>Activity — Nuclear medicine calculator</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#calculator">Skip to calculator</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Activity calculator home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="3" fill="currentColor"/><ellipse cx="16" cy="16" rx="13" ry="5.5" stroke="currentColor" stroke-width="1.6" transform="rotate(-50 16 16)"/><ellipse cx="16" cy="16" rx="13" ry="5.5" stroke="currentColor" stroke-width="1.6" transform="rotate(50 16 16)"/></svg></span>
+        <span><span class="brand-title">Activity<span class="brand-dot">.</span></span><span class="brand-subtitle">NUCLEAR MEDICINE</span></span>
+      </a>
+      <span class="header-meta"><span class="status-dot" aria-hidden="true"></span>Physical decay calculator</span>
+    </header>
+
+    <main id="calculator">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">FROM MEASUREMENT TO ADMINISTRATION</p>
+        <h1 id="page-title">The right activity.<br><span>At the right time.</span></h1>
+        <p class="intro-description">Calculate activity at injection time, with optional syringe residue correction.</p>
+      </section>
+
+      <noscript><div class="error-summary">Enable JavaScript to use this calculator. All calculations run locally in your browser.</div></noscript>
+
+      <div class="calculator-grid">
+        <form class="calculator-form" id="activity-form" novalidate autocomplete="off">
+          <section class="card" aria-labelledby="measurement-title">
+            <div class="card-header"><span class="step-number" aria-hidden="true">01</span><div><h2 class="card-title" id="measurement-title">Activity measurement</h2><p class="card-subtitle">The syringe reading before administration.</p></div></div>
+            <div class="field">
+              <label class="field-label" for="isotope">Radionuclide</label>
+              <select class="input" id="isotope" name="isotope" aria-describedby="half-life" required><option value="Tc-99m">Tc-99m · Technetium-99m</option></select>
+              <div class="isotope-chips" aria-label="Frequently used radionuclides">
+                <button class="isotope-chip" type="button" data-isotope="Tc-99m" aria-pressed="true">Tc-99m</button>
+                <button class="isotope-chip" type="button" data-isotope="F-18" aria-pressed="false">F-18</button>
+                <button class="isotope-chip" type="button" data-isotope="Ga-68" aria-pressed="false">Ga-68</button>
+                <button class="isotope-chip" type="button" data-isotope="Lu-177" aria-pressed="false">Lu-177</button>
+              </div>
+              <p class="field-hint" id="half-life">Physical half-life: <strong id="half-life-value">6.0067 h</strong> <a id="half-life-source" href="https://www.lnhb.fr/nuclides/Tc-99m_tables.pdf" target="_blank" rel="noopener noreferrer" aria-label="View half-life reference (opens in new tab)">LNHB/DDEP ↗</a></p>
+            </div>
+            <div class="field">
+              <label class="field-label" for="measured-activity">Measured activity</label>
+              <div class="activity-input-row"><input class="input activity-input" id="measured-activity" name="activity" type="text" inputmode="decimal" enterkeyhint="next" placeholder="e.g. 600" spellcheck="false" aria-describedby="activity-hint measured-activity-error" required><select class="input unit-select" id="activity-unit" name="unit" aria-label="Measured activity unit"><option>MBq</option><option>GBq</option><option>mCi</option><option value="uCi">µCi</option></select></div>
+              <p class="field-hint" id="activity-hint">Use a decimal point or comma. No thousands separators.</p>
+              <p class="field-error" id="measured-activity-error" hidden></p>
+            </div>
+            <div class="date-time-grid">
+              <div class="field date-time-field"><label class="field-label" for="measurement-date">Measurement date</label><input class="input" id="measurement-date" name="measurement-date" type="date" aria-describedby="measurement-date-error" required><p class="field-error" id="measurement-date-error" hidden></p></div>
+              <div class="field date-time-field"><div class="field-label-row"><label class="field-label" for="measurement-time">Time</label><button class="input-action" type="button" data-now="measurement" aria-label="Set measurement date and time to now">Now</button></div><input class="input" id="measurement-time" name="measurement-time" type="time" step="1" aria-describedby="measurement-time-error" required><p class="field-error" id="measurement-time-error" hidden></p></div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="administration-title">
+            <div class="card-header"><span class="step-number" aria-hidden="true">02</span><div><h2 class="card-title" id="administration-title">Administration</h2><p class="card-subtitle">When the patient receives the injection.</p></div></div>
+            <div class="date-time-grid">
+              <div class="field date-time-field"><label class="field-label" for="administration-date">Administration date</label><input class="input" id="administration-date" name="administration-date" type="date" aria-describedby="administration-date-error" required><p class="field-error" id="administration-date-error" hidden></p></div>
+              <div class="field date-time-field"><div class="field-label-row"><label class="field-label" for="administration-time">Time</label><button class="input-action" type="button" data-now="administration" aria-label="Set administration date and time to now">Now</button></div><input class="input" id="administration-time" name="administration-time" type="time" step="1" aria-describedby="administration-time-error" required><p class="field-error" id="administration-time-error" hidden></p></div>
+            </div>
+            <div class="time-actions"><span>After measurement</span><div class="quick-buttons"><button class="quick-button" type="button" data-offset="15" disabled>+15 min</button><button class="quick-button" type="button" data-offset="30" disabled>+30 min</button><button class="quick-button" type="button" data-offset="60" disabled>+60 min</button></div></div>
+            <p class="field-hint timezone-note" id="timezone-note">All dates and times use your device’s local time zone.</p>
+          </section>
+
+          <section class="card advanced-card" aria-labelledby="residue-title">
+            <div class="card-header advanced-header"><div><p class="eyebrow">OPTIONAL</p><h2 class="card-title" id="residue-title">Subtract syringe residue</h2><p class="card-subtitle" id="residue-description">For a more precise administered activity.</p></div><label class="switch"><input class="switch-control" id="residue-toggle" name="residue-enabled" type="checkbox" role="switch" aria-label="Subtract syringe residue" aria-describedby="residue-description" aria-controls="residue-fields"><span class="switch-track" aria-hidden="true"></span></label></div>
+            <fieldset class="residue-fields" id="residue-fields" hidden disabled>
+              <legend class="sr-only">Syringe residue measurement</legend>
+              <p class="field-hint residue-intro">Enter the reading taken after injection. We correct it back to the administration time before subtracting it.</p>
+              <div class="field"><label class="field-label" for="residue-activity">Residual activity</label><div class="activity-input-row"><input class="input activity-input" id="residue-activity" name="residue-activity" type="text" inputmode="decimal" enterkeyhint="next" placeholder="e.g. 12" spellcheck="false" aria-describedby="residue-activity-error" required><select class="input unit-select" id="residue-unit" name="residue-unit" aria-label="Residual activity unit"><option>MBq</option><option>GBq</option><option>mCi</option><option value="uCi">µCi</option></select></div><p class="field-error" id="residue-activity-error" hidden></p></div>
+              <div class="date-time-grid"><div class="field date-time-field"><label class="field-label" for="residue-date">Residue measurement date</label><input class="input" id="residue-date" name="residue-date" type="date" aria-describedby="residue-date-error" required><p class="field-error" id="residue-date-error" hidden></p></div><div class="field date-time-field"><div class="field-label-row"><label class="field-label" for="residue-time">Time</label><button class="input-action" type="button" data-now="residue" aria-label="Set residue measurement date and time to now">Now</button></div><input class="input" id="residue-time" name="residue-time" type="time" step="1" aria-describedby="residue-time-error" required><p class="field-error" id="residue-time-error" hidden></p></div></div>
+            </fieldset>
+          </section>
+          <div class="form-footer"><span class="privacy-note"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><rect x="4.5" y="9" width="11" height="8" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 9V6a3 3 0 016 0v3" stroke="currentColor" stroke-width="1.5"/></svg>Calculated on your device. No data saved.</span><button class="reset-button" id="reset-button" type="button">New calculation <span aria-hidden="true">↺</span></button></div>
+        </form>
+
+        <aside class="result-column" aria-label="Calculation result">
+          <section class="result-card" id="result" aria-labelledby="result-title" tabindex="-1">
+            <div class="result-heading"><p class="result-eyebrow" id="result-title">ACTIVITY AT ADMINISTRATION</p><span class="result-status" id="result-status">Ready when you are</span></div>
+            <div class="result-empty" id="result-empty"><span class="result-placeholder" aria-hidden="true">—<span> MBq</span></span><p id="empty-message">Enter an activity and both times.<br>Your result updates automatically.</p></div>
+            <div id="result-content" hidden>
+              <div class="result-number"><output class="result-value" id="result-value" for="isotope measured-activity activity-unit measurement-date measurement-time administration-date administration-time residue-toggle residue-activity residue-unit residue-date residue-time">—</output><span class="result-unit" id="result-unit">MBq</span></div>
+              <p class="result-secondary" id="result-secondary"></p>
+              <span class="elapsed-pill" id="elapsed"></span>
+              <div class="result-divider"></div>
+              <dl class="result-breakdown"><div class="result-row"><dt>Activity at injection</dt><dd id="gross-result"></dd></div><div class="result-row" id="residue-result-row" hidden><dt>Residue at injection</dt><dd id="residue-result"></dd></div><div class="result-row result-row-total" id="net-result-row" hidden><dt>Net administered</dt><dd id="net-result"></dd></div></dl>
+              <p class="result-note" id="result-note"></p>
+              <div class="result-meta"><span id="result-isotope"></span><span id="result-time"></span></div>
+              <p class="result-precision">Up to 6 significant digits shown; unrounded values used.</p>
+              <div class="result-actions"><button type="button" class="button button-primary" id="copy-result"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M13 7V5a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" stroke="currentColor" stroke-width="1.5"/></svg>Copy calculation</button></div>
+              <div id="copy-fallback" hidden><label for="copy-text">Select and copy your calculation:</label><textarea class="input" id="copy-text" readonly rows="8"></textarea></div>
+            </div>
+            <p class="error-summary" id="error-summary" hidden></p>
+          </section>
+          <p class="result-caption">Physical decay only. No patient details needed.</p>
+          <details class="help-details"><summary>How this is calculated <span aria-hidden="true">+</span></summary><div class="help-content"><p>Activity is corrected to the time of administration using the selected radionuclide’s physical half-life.</p><p class="formula">A<sub>injection</sub> = A<sub>measured</sub> × 2<sup>−Δt / T½</sup></p><p>When residue is included, its later reading is corrected <strong>backward</strong> to the injection time, then subtracted:</p><p class="formula">R<sub>injection</sub> = R<sub>measured</sub> × 2<sup>+Δt<sub>residue</sub> / T½</sup><br>A<sub>net</sub> = A<sub>injection</sub> − R<sub>injection</sub></p><p>Δt is elapsed time; T½ is physical half-life. Use the same radionuclide for both readings. Residue must be measured at or after injection. This assumes an injection at the entered time and does not model a prolonged infusion.</p><p>1 mCi = 37 MBq. This calculates activity, not absorbed dose. It does not account for biological clearance, measurement uncertainty, or calibration errors.</p><p>Dates use your device’s time zone. Enter the actual dates for overnight calculations. Ambiguous or nonexistent daylight-saving times cannot be used.</p><p class="validation-note">Before clinical use, validate the calculator, half-lives, and rounding against your department’s approved procedure.</p></div></details>
+          <details class="help-details"><summary>Radionuclides &amp; reference data <span aria-hidden="true">+</span></summary><div class="help-content"><p>Physical half-lives from the <a href="https://www.lnhb.fr/nuclear-data/nuclear-data-table/" target="_blank" rel="noopener noreferrer">LNHB Decay Data Evaluation Project ↗</a>. Select a half-life below to open its evaluation.</p><div class="isotope-table"><table><caption class="sr-only">Supported radionuclides and reference physical half-lives</caption><thead><tr><th scope="col">Radionuclide</th><th scope="col">Half-life</th></tr></thead><tbody id="isotope-references"></tbody></table></div></div></details>
+        </aside>
+      </div>
+    </main>
+    <footer class="footer"><span>Activity<span class="brand-dot">.</span> <span class="footer-description">A little less arithmetic. A little more care.</span></span><span>Verify against your department’s validated procedure.</span></footer>
+  </div>
+  <div class="mobile-result-bar" id="mobile-result-bar"><div><span class="mobile-result-label" id="mobile-result-label">Activity at administration</span><span class="mobile-result-value" id="mobile-result-value">Awaiting measurements</span></div><a class="mobile-result-link" href="#result">View result <span aria-hidden="true">↑</span></a></div>
+  <p class="sr-only" id="result-announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>
