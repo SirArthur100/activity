@@ -11,7 +11,7 @@ const invalid = (changes, field) => assert.throws(() => calculateActivity({ ...b
   error instanceof ValidationError && error.field === field);
 
 test('all isotope constants have explicit physical half-lives and LNHB/DDEP provenance', () => {
-  assert.equal(ISOTOPES.length, 11);
+  assert.equal(ISOTOPES.length, 12);
   assert.equal(new Set(ISOTOPES.map(item => item.id)).size, ISOTOPES.length);
   for (const item of ISOTOPES) {
     assert.ok(item.halfLifeMinutes > 0);
@@ -36,6 +36,22 @@ test('known Tc-99m one-hour example uses unrounded exponential decay', () => {
   // Independently evaluated with Python Decimal at 50-digit precision.
   close(result.netMBq, 659.35000880306701157221048991487208429527393198250);
   assert.equal(result.elapsedMinutes, 60);
+});
+
+test('Co-57 uses its 271.81-day half-life for decay and residue correction', () => {
+  // Independent interval in days catches an incorrect days-to-minutes conversion.
+  const halfLifeMs = 271.81 * 86400000;
+  const input = { ...base, isotopeId: 'Co-57', measuredActivity: 100, administeredAt: start + halfLifeMs };
+  const decayed = calculateActivity(input);
+  close(decayed.netMBq, 50);
+  assert.equal(decayed.isotope.halfLifeLabel, '271.81 d');
+  assert.equal(decayed.isotope.sourceUrl, 'https://www.lnhb.fr/nuclides/Co-57_tables.pdf');
+
+  const corrected = calculateActivity({ ...input, residue: {
+    activity: 5, unit: 'MBq', measuredAt: start + 2 * halfLifeMs,
+  } });
+  close(corrected.residueMBq, 10);
+  close(corrected.netMBq, 40);
 });
 
 test('unit conversions have identical physical results', () => {

@@ -1,7 +1,8 @@
 /**
  * Physical activity decay only. All timestamp arguments are epoch milliseconds.
  * Half-lives are the central values in the linked LNHB/DDEP evaluations, checked
- * 2026-11-01. Display rounding must never be used as input to this module.
+ * 2026-11-01 (Co-57 added and checked 2026-11-09).
+ * Display rounding must never be used as input to this module.
  */
 
 const sourceName = 'LNHB / DDEP';
@@ -22,6 +23,7 @@ export const ISOTOPES = Object.freeze([
   isotope('C-11', '¹¹C', 'Carbon-11', 20.361, '20.361 min'),
   isotope('N-13', '¹³N', 'Nitrogen-13', 9.9589, '9.9589 min'),
   isotope('O-15', '¹⁵O', 'Oxygen-15', 122.266 / 60, '122.266 s'),
+  isotope('Co-57', '⁵⁷Co', 'Cobalt-57', 271.81 * 1440, '271.81 d'),
 ]);
 
 // The curie is exactly 3.7 × 10^10 Bq; 1 mCi = 37 MBq.
