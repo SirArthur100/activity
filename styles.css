@@ -205,7 +205,12 @@ input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--da
 #copy-fallback { margin-top: 18px; }
 #copy-fallback label { display: block; margin-bottom: 8px; font-size: 12px; }
 #copy-text { min-width: 0; max-width: 100%; border-radius: 8px; resize: vertical; }
-.footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; margin-top: 40px; padding-top: 22px; padding-bottom: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.7; }
+.footer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 10px 20px; margin-top: 40px; padding-top: 22px; padding-bottom: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.7; }
+.footer-author { text-align: right; }
+.footer-note { grid-column: 1 / -1; text-align: center; }
+.footer-warning { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.footer-warning svg { width: 15px; height: 15px; color: #946200; }
+.footer .privacy-note { justify-content: center; }
 .footer p { margin: 0; }
 .footer a { color: inherit; }
 .mobile-result-bar { display: none; }

@@ -238,8 +238,8 @@ function initialize() {
     return row;
   });
   $('isotope-references').replaceChildren(...rows);
-  const zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'device local time';
-  $('timezone-note').textContent = `Local time · ${zone}. Seconds are supported. Check the date for overnight calculations.`;
+  // const zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'device local time';
+  // $('timezone-note').textContent = `Local time · ${zone}. Seconds are supported. Check the date for overnight calculations.`;
   updateIsotope();
   resetCalculation();
 }
