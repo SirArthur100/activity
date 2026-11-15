@@ -136,11 +136,6 @@ function renderResult(result, input) {
   $('net-result').textContent = formatActivity(net, unit);
   $('residue-result-row').hidden = !residueEnabled;
   $('net-result-row').hidden = !residueEnabled;
-  $('result-note').textContent = residueEnabled
-    ? `Residue corrected back ${formatDuration(result.residueElapsedMinutes)} to the injection time.`
-    : 'Before any syringe residue is subtracted. Enable residue correction if a reading is available.';
-  $('result-isotope').textContent = `${input.isotopeId} · T½ ${result.isotope.halfLifeLabel}`;
-  $('result-time').textContent = formatTimestamp(input.administeredAt);
   $('mobile-result-value').textContent = formatActivity(net, unit);
   announce(`${residueEnabled ? 'Net administered activity' : 'Activity at administration'}: ${formatActivity(net, unit)}. ${formatDuration(result.elapsedMinutes)} from measurement.`);
 }

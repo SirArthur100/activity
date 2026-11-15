@@ -8,7 +8,7 @@
   <title>Activity — Nuclear medicine calculator</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css?v=20261115-footer-icons">
-  <script type="module" src="./js/app.js?v=20261115-hide-timezone-note"></script>
+  <script type="module" src="./js/app.js?v=20261115-simplify-results"></script>
 </head>
 <body>
   <a class="skip-link" href="#calculator">Skip to calculator</a>
@@ -88,9 +88,6 @@
               <span class="elapsed-pill" id="elapsed"></span>
               <div class="result-divider"></div>
               <dl class="result-breakdown"><div class="result-row"><dt>Activity at injection</dt><dd id="gross-result"></dd></div><div class="result-row" id="residue-result-row" hidden><dt>Residue at injection</dt><dd id="residue-result"></dd></div><div class="result-row result-row-total" id="net-result-row" hidden><dt>Net administered</dt><dd id="net-result"></dd></div></dl>
-              <p class="result-note" id="result-note"></p>
-              <div class="result-meta"><span id="result-isotope"></span><span id="result-time"></span></div>
-              <p class="result-precision">Up to 6 significant digits shown; unrounded values used.</p>
               <div class="result-actions"><button type="button" class="button button-primary" id="copy-result"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M13 7V5a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" stroke="currentColor" stroke-width="1.5"/></svg>Copy calculation</button></div>
               <div id="copy-fallback" hidden><label for="copy-text">Select and copy your calculation:</label><textarea class="input" id="copy-text" readonly rows="8"></textarea></div>
             </div>
